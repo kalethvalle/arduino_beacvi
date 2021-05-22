@@ -15,7 +15,6 @@ void setup() {
   Serial.begin(9600);   // Initialize serial communications with the PC
   SPI.begin();      // Init SPI bus
   mfrc522.PCD_Init();   // Init MFRC522
-  Serial.println("Iniciando ...");
 }
 
 void loop() {
@@ -28,8 +27,8 @@ void loop() {
   if ( ! mfrc522.PICC_ReadCardSerial()) {
     return;
   }
-
-  Serial.print("UID: ");
+ 
+  //Serial.print("UID: ");
 
   for(byte i = 0; i < mfrc522.uid.size; i++){
     if(mfrc522.uid.uidByte[i] < 0x10){
@@ -37,11 +36,11 @@ void loop() {
     }else{
       Serial.print(" ");
     }
-    Serial.print(mfrc522.uid.uidByte[i], HEX);
+    Serial.print(mfrc522.uid.uidByte[i], DEC);
     LecturaUID[i] = mfrc522.uid.uidByte[i];
   }
 
-  Serial.print("\t");
+  /*Serial.print("\t");
   if(comparaUID(LecturaUID, User1)){
     Serial.println("Bienvenido User 1");
   }else if(comparaUID(LecturaUID, User2)){
@@ -50,8 +49,7 @@ void loop() {
     Serial.println("Bienvenido User 3");
   }else{
     Serial.println("No te conozco");
-  }
-  //Serial.println();
+  }*/
   mfrc522.PICC_HaltA();
 }
 
